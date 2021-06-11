@@ -1,34 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import TodoForm from './TodoForm';
 
 export default function Todo(props) {
-  const { todos, completeTodo, removeTodo } = props;
+  const { todos, completeTodo, removeTodo, updateTodo } = props;
   const [editTodo, setEditTodo] = useState({
     id: null,
     content: '',
+    isDone: false,
   });
-  // const file = async () => {
-  //   await strapi.plugins['upload'].services.upload.fetch({ id });
-  //   await strapi.plugins['upload'].services.upload.remove(todos);
-  // };
-  // const taskdelete = async () => {
-  //   const response = await axios.delete('http://localhost:1337/todos/id');
-  //   removeTodo();
+
+  //const [todoToDelete, setTododToDelete] = useState({});
+
+  //UPDATEtODO
+  const submitUpdate = (value) => {
+    updateTodo(editTodo.id, value);
+    setEditTodo({
+      id: null,
+      value: '',
+    });
+  };
+
+  if (editTodo.id) {
+    console.log('editTodo', editTodo);
+    return <TodoForm editTodo={editTodo} onSubmit={submitUpdate} />;
+  }
+
+  // const deletingTodo = (todo) => {
+  //   console.log('tod in single todo', todo);
+  //   setTododToDelete(todo);
   // };
 
-  // useEffect(() => {
-  //   taskdelete();
-  // }, []);
+  // const taskdelete = async () => {
+  //   console.log('in here to delete');
+  //   const response = await axios.delete(
+  //     `http://localhost:1337/todos/${todo.id}`
+  //   );
+  // };
 
   return todos.map((todo, index) => (
     <div
       className={todo.isCompleted ? 'todo-row completed' : 'todo-row'}
       key={index}
     >
-      <div key={todo.id} onClick={() => completeTodo(todo.id)}>
+      <div
+        key={todo.id}
+        onClick={() => completeTodo(todo.id)}
+        onDoubleClick={() => setEditTodo({ id: todo.id, value: todo.content })}
+      >
         {todo.content}
       </div>
-      <div onClick={() => removeTodo(todo.id)}>X</div>
+      <div onClick={() => removeTodo(todo)}>X</div>
     </div>
   ));
 }

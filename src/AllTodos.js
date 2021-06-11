@@ -6,6 +6,7 @@ import Todo from './Todo';
 export default function AllTodos(props) {
   //console.log('props', props);
   const [todos, setTodos] = useState([]);
+  const [todoDelete, setTodoDelete] = useState({});
 
   const addTodo = (todo) => {
     const addedTodo = [todo, ...todos];
@@ -19,20 +20,37 @@ export default function AllTodos(props) {
     );
   };
 
-  const removeTodo = (id) => {
+  const removeTodo = (todo) => {
+    console.log('id', todo);
+    const id = todo.id;
     const newList = [...todos].filter((todo) => todo.id !== id);
+
     setTodos(newList);
+    console.log('todo', todo);
+    console.log('id here', id);
+    //taskdelete(id);
+
+    setTodoDelete(todo);
+    //set the state to object i want to delete to be passd in axios call
+    taskdelete(todoDelete);
   };
 
-  // const completeTodo = (id) => {
-  //   let updatedTodo = todos.map((todo) => {
-  //     if (todo.id === id) {
-  //       todo.isComplete = !todo.isComplete;
-  //     }
-  //     return todo;
-  //   });
-  //   setTodos(updatedTodo);
-  // };
+  const taskdelete = async () => {
+    console.log('in here to delete', todoDelete);
+    const response = await axios.delete(
+      `http://localhost:1337/todos/${todoDelete.id}`
+    );
+  };
+
+  const completeTodo = (id) => {
+    let updatedTodo = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.isComplete = !todo.isComplete;
+      }
+      return todo;
+    });
+    setTodos(updatedTodo);
+  };
 
   // Fetch your todos immediately after the component is mounted
 
@@ -52,21 +70,17 @@ export default function AllTodos(props) {
   useEffect(() => {
     getTodos();
   }, []);
-
-  // const taskdelete = async () => {
-  //   const response = await axios.delete('http://localhost:1337/todos/id');
-  //   removeTodo();
-  // };
-
-  // useEffect(() => {df
-  //   taskdelete();
-  // });
   return (
     <div className='App'>
       <TodoForm onSubmit={addTodo} />
 
       <h1>todos</h1>
-      <Todo todos={todos} updateTodo={updateTodo} removeTodo={removeTodo} />
+      <Todo
+        todos={todos}
+        updateTodo={updateTodo}
+        removeTodo={removeTodo}
+        completeTodo={completeTodo}
+      />
 
       {/* <ul>
         {todos.map((todo) => (

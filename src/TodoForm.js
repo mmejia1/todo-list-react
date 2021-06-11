@@ -3,7 +3,11 @@ import axios from 'axios';
 //input the values, when button clickecd there should be a post request sent to back end
 
 export default function TodoForm(props) {
-  const [content, setTodo] = useState('');
+  //console.log('props', props.editTodo.value);
+  //useState needs to be set for a new added task or for editing task
+  const [content, setTodo] = useState(
+    props.editTodo ? props.editTodo.value : ''
+  );
   //const [completed, setCompleted] = useState(false)
 
   const addTodo = async (content) => {
@@ -17,14 +21,33 @@ export default function TodoForm(props) {
       });
   };
 
+  const updateTodoRequest = async () => {
+    //console.log('event', evt.target);
+    console.log('inhere to destroy', content);
+    const data = await axios
+      .put(`http://localhost:1337/todos/${props.editTodo.id}`, {
+        content: content,
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  };
+
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log('in handlesubmit');
+    console.log('in handlesubmit', evt);
+
     props.onSubmit({
       content: content,
     });
-    // we want to set input to state so it can be postted?
-    addTodo(content);
+    if (props.editTodo) {
+      console.log('we have props');
+      setTodo(evt.target.value);
+      updateTodoRequest();
+    } else {
+      // we want to set input to state so it can be postted?
+      addTodo(content);
+    }
     //reset for next input value on form
     setTodo('');
   }
@@ -35,37 +58,37 @@ export default function TodoForm(props) {
     setTodo(todo);
   }
 
+  // useEffect(() => {
+  //   updateTodoRequest();
+  // });
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div className='col-md-7'>
-        <input
-          onChange={(evt) => onChange(evt)}
-          type='text'
-          className='form-control'
-          placeholder='your task'
-          value={content}
-        />
-      </div>
-      <div className='col-md-4'>
-        <button className='btn btn-primary'> Create New Task </button>
-      </div>
+    <form className='todo-form' onSubmit={handleSubmit}>
+      {/* insert if statement in case its an existing to do and we just want to edit */}
+
+      {props.editTodo ? (
+        <>
+          <input
+            //onChange={(evt) => onChange(evt)}
+            type='text'
+            className='form-control'
+            placeholder='edit your task'
+            value={content}
+          />
+          <button className='btn btn-primary'> Edit Task </button>
+        </>
+      ) : (
+        <>
+          <input
+            onChange={(evt) => onChange(evt)}
+            type='text'
+            className='form-control'
+            placeholder='your task'
+            value={content}
+          />
+          <button className='btn btn-primary'> Create New Task </button>
+        </>
+      )}
     </form>
   );
 }
-
-// class TodoForm extends Component {
-//   constructor() {
-//     super();
-//     this.state = {};
-//   }
-
-//   render() {
-//     return (
-//       <form>
-
-//       </form>
-//     )
-//   }
-// }
-
-// export default TodoForm;
