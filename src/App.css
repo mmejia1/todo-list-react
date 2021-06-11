@@ -1,4 +1,13 @@
-.App {
+.done {
+  text-decoration: line-through;
+}
+
+#done {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +44,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

@@ -7,6 +7,7 @@ export default function AllTodos(props) {
   //console.log('props', props);
   const [todos, setTodos] = useState([]);
   const [todoDelete, setTodoDelete] = useState({});
+  // const [idUpdate, setTodoUpdate] = useState({});
 
   const addTodo = (todo) => {
     const addedTodo = [todo, ...todos];
@@ -42,15 +43,29 @@ export default function AllTodos(props) {
     );
   };
 
-  const completeTodo = (id) => {
-    let updatedTodo = todos.map((todo) => {
+  const completeTodo = (todo) => {
+    const id = todo.id;
+    let updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
+        console.log('foundIt');
+        todo.isDone = !todo.isDone;
       }
       return todo;
     });
-    setTodos(updatedTodo);
+
+    setTodos(updatedTodos);
+
+    axios.put(`http://localhost:1337/todos/${todo.id}`, {
+      isDone: todo.isDone,
+    });
   };
+  //need axios call to update if todo isDone
+  // const updateIsDone = async () => {
+  //   console.log('todoUpdate', idUpdate);
+  //   await axios.put(`http://localhost:1337/todos/${idUpdate.id}`, {
+  //     // isDone: 1isDone,
+  //   });
+  // };
 
   // Fetch your todos immediately after the component is mounted
 

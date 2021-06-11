@@ -39,13 +39,10 @@ export default function Todo(props) {
   // };
 
   return todos.map((todo, index) => (
-    <div
-      className={todo.isCompleted ? 'todo-row completed' : 'todo-row'}
-      key={index}
-    >
+    <div className={todo.isDone ? 'todo-row done' : 'todo-row'} key={index}>
       <div
         key={todo.id}
-        onClick={() => completeTodo(todo.id)}
+        onClick={() => completeTodo(todo)}
         onDoubleClick={() => setEditTodo({ id: todo.id, value: todo.content })}
       >
         {todo.content}
