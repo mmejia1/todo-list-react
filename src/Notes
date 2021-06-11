@@ -1,0 +1,6 @@
+-in order to use "useEffect" with async, put async in a function and call it in use effect.
+
+-In this project using axios to make calls to the back end
+
+-In this project using react hooks with functional comonents
+
