@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AllTodos from './AllTodos';
+import './App.css';
 
 export default function App() {
   // const [todos, setTodods] = useState([]);
@@ -28,6 +29,9 @@ export default function App() {
   return (
     <>
       <AllTodos />
+      {/* <button>AllTodos </button>
+      <button>Active </button>
+      <button onClick={()=> completedTodos()} > Completed</button> */}
     </>
   );
 }

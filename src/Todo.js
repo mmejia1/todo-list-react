@@ -3,7 +3,9 @@ import axios from 'axios';
 import TodoForm from './TodoForm';
 
 export default function Todo(props) {
+  console.log('todos after filter', props);
   const { todos, completeTodo, removeTodo, updateTodo } = props;
+  console.log('todos after filter', todos);
   const [editTodo, setEditTodo] = useState({
     id: null,
     content: '',

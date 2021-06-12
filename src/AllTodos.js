@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TodoForm from './TodoForm';
 import Todo from './Todo';
+//import Completed from './Completed';
 
 export default function AllTodos(props) {
   //console.log('props', props);
@@ -85,6 +86,37 @@ export default function AllTodos(props) {
   useEffect(() => {
     getTodos();
   }, []);
+
+  // DISPLAY COMPLETED OR ACTIVE
+  const completedTodosList = async () => {
+    const filteredCompletedTodo = await axios.get(
+      'http://localhost:1337/todos?isDone=true'
+    );
+    // const filteredCompletedTodo = todos.filter((todo) => {
+    //   console.log(todo);
+    //   if (todo.isDone === true) {
+    //     return todo;
+    //   }
+    // });
+    console.log(filteredCompletedTodo.data);
+    setTodos(filteredCompletedTodo.data);
+  };
+
+  const active = async () => {
+    const filteredActive = await axios.get(
+      'http://localhost:1337/todos?isDone=false'
+    );
+
+    //todos.filter((todo) => {
+    //   console.log(todo);
+    //   if (todo.isDone === false) {
+    //     return todo;
+    //   }
+    // });
+    console.log(filteredActive.data);
+    setTodos(filteredActive.data);
+  };
+
   return (
     <div className='App'>
       <TodoForm onSubmit={addTodo} />
@@ -96,6 +128,11 @@ export default function AllTodos(props) {
         removeTodo={removeTodo}
         completeTodo={completeTodo}
       />
+      <button onClick={() => getTodos()}>AllTodos </button>
+      <button onClick={() => active()}>Active </button>
+      {/* <Completed todos={todos} /> */}
+
+      <button onClick={() => completedTodosList()}> Completed</button>
 
       {/* <ul>
         {todos.map((todo) => (
