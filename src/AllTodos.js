@@ -8,7 +8,7 @@ export default function AllTodos(props) {
   //console.log('props', props);
   const [todos, setTodos] = useState([]);
   const [todoDelete, setTodoDelete] = useState({});
-  // const [idUpdate, setTodoUpdate] = useState({});
+  const [numberOfTodos, setCount] = useState(0);
 
   const addTodo = (todo) => {
     const addedTodo = [todo, ...todos];
@@ -76,6 +76,9 @@ export default function AllTodos(props) {
       console.log('made it here');
       console.log('made it here', response.data);
       setTodos(response.data);
+      const countingTodos = response.data.length;
+      console.log(countingTodos);
+      setCount(countingTodos);
       // this.setState({ todos: response.data });
     } catch (error) {
       //this.setState({ error });
@@ -128,6 +131,7 @@ export default function AllTodos(props) {
         removeTodo={removeTodo}
         completeTodo={completeTodo}
       />
+      <div>you have {numberOfTodos} task left</div>
       <button onClick={() => getTodos()}>AllTodos </button>
       <button onClick={() => active()}>Active </button>
       {/* <Completed todos={todos} /> */}
