@@ -23,7 +23,7 @@ export default function TodoForm(props) {
 
   //AXIOS CALL TO UPDATE THE TODO CONTENT
   const updateTodoRequest = async () => {
-    const data = await axios
+    await axios
       .put(`http://localhost:1337/todos/${props.editTodo.id}`, {
         content: content,
       })

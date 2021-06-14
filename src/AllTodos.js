@@ -59,9 +59,7 @@ export default function AllTodos() {
     const id = todo.id;
     const newList = [...todos].filter((todo) => todo.id !== id);
 
-    const response = await axios.delete(
-      `http://localhost:1337/todos/${todo.id}`
-    );
+    await axios.delete(`http://localhost:1337/todos/${todo.id}`);
     setTodos(newList);
   };
 
