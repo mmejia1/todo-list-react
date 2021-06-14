@@ -11,3 +11,11 @@
 
 ## Code notes, could have probably worked on a axios call that would take care of content and isDone changes
    Could use some more design work like adding the circle around check mark
+
+
+// "scripts": {
+  //   "develop": "strapi develop",
+  //   "start": "strapi start",
+  //   "build": "strapi build",
+  //   "strapi": "strapi"
+  // },
