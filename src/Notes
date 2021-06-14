@@ -4,4 +4,10 @@
 
 -In this project using react hooks with functional comonents
 
--added a onDoubleClick functionto each todo
+-added a onDoubleClick functionto for each todo
+
+-added a clearcomplete function that would handle deliting all completed tasl
+
+
+## Code notes, could have probably worked on a axios call that would take care of content and isDone changes
+   Could use some more design work like adding the circle around check mark

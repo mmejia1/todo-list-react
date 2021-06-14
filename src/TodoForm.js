@@ -8,8 +8,8 @@ export default function TodoForm(props) {
   const [content, setTodo] = useState(
     props.editTodo ? props.editTodo.value : ''
   );
-  //const [completed, setCompleted] = useState(false)
-  console.log('edit propsp', props);
+
+  //ADDING A TODO AXIOS CALL
   const addTodo = async (content) => {
     await axios
       .post('http://localhost:1337/todos', {
@@ -21,9 +21,8 @@ export default function TodoForm(props) {
       });
   };
 
+  //AXIOS CALL TO UPDATE THE TODO CONTENT
   const updateTodoRequest = async () => {
-    //console.log('event', evt.target);
-    console.log('inhere to destroy', content);
     const data = await axios
       .put(`http://localhost:1337/todos/${props.editTodo.id}`, {
         content: content,
@@ -35,13 +34,11 @@ export default function TodoForm(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log('in handlesubmit', evt);
 
     props.onSubmit({
       content: content,
     });
     if (props.editTodo) {
-      console.log('we have props');
       setTodo(evt.target.value);
       updateTodoRequest();
     } else {
@@ -53,20 +50,17 @@ export default function TodoForm(props) {
   }
 
   function onChange(evt) {
-    console.log(evt.target.value);
     let todo = evt.target.value;
     setTodo(todo);
   }
 
   return (
     <form className='todo-form' onSubmit={handleSubmit}>
-      {/* insert if statement in case its an existing to do and we just want to edit */}
-
       {props.editTodo ? (
         <>
           <input
             onChange={(evt) => onChange(evt)}
-            type='text'
+            type='text-edit'
             className='form-control'
             placeholder='edit your task'
             value={content}
@@ -82,7 +76,6 @@ export default function TodoForm(props) {
             placeholder='your task'
             value={content}
           />
-          {/* <button className='btn btn-primary'> Create New Task </button> */}
         </>
       )}
     </form>

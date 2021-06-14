@@ -62,8 +62,21 @@ input[type='text'] {
   border-bottom-style: hidden;
 }
 
+input[type='text-edit'] {
+  background: #eee;
+  width: 100%;
+  height: 30px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+}
+
 input::placeholder {
   text-align: center;
+  font-size: large;
 }
 
 /* input[type='text'] {

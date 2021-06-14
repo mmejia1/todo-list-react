@@ -8,33 +8,23 @@ export default function AllTodos() {
   const [activeTodos, setActive] = useState(0);
   const [clearCompleted, setClearCompleted] = useState(false);
 
-  //FETCHING ALL TODOS
   // Fetch your todos immediately after the component is mounted
   const getTodos = async () => {
     try {
       const response = await axios.get('http://localhost:1337/todos');
-      console.log('made it here', response.data);
-      console.log('made it here', response.data);
       setTodos(response.data);
-      const countingTodos = response.data.length;
-      console.log('bunny', countingTodos);
 
       //CHECKING ACTIVE TASK FOR COUNT
       const active = response.data.filter((todo) => {
-        console.log('IN HERE TO FILTER');
         if (todo.isDone === false) {
-          console.log(todo);
           return todo;
         }
       });
-      console.log('filteractive', active);
       setActive(active.length);
 
       //CHECKING COMPLETED TASK FOR CLEAR COMPLETED BUTTON
       const isClearCompletedActivated = response.data.filter((todo) => {
-        console.log('IN HERE TO FILTER');
         if (todo.isDone === true) {
-          console.log(todo);
           return todo;
         }
       });
@@ -51,10 +41,10 @@ export default function AllTodos() {
   useEffect(() => {
     getTodos();
   }, []);
+
   //ADDING A TODO TO LIST
   const addTodo = (todo) => {
     const addedTodo = [todo, ...todos];
-    console.log(addedTodo);
     setTodos(addedTodo);
     getTodos();
   };
@@ -66,7 +56,6 @@ export default function AllTodos() {
   };
   //DELETING TODO ON LIST
   const removeTodo = async (todo) => {
-    console.log('id', todo);
     const id = todo.id;
     const newList = [...todos].filter((todo) => todo.id !== id);
 
@@ -77,15 +66,11 @@ export default function AllTodos() {
   };
 
   const completeTodo = (todo) => {
-    const id = todo.id;
-    let updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        console.log('foundIt');
+    let updatedTodos = todos.map((task) => {
+      if (todo.id === task.id) {
         todo.isDone = !todo.isDone;
       }
-
       getTodos();
-
       return todo;
     });
 
@@ -101,7 +86,7 @@ export default function AllTodos() {
     const filteredCompletedTodo = await axios.get(
       'http://localhost:1337/todos?isDone=true'
     );
-    console.log(filteredCompletedTodo.data);
+
     setTodos(filteredCompletedTodo.data);
   };
 
@@ -109,22 +94,15 @@ export default function AllTodos() {
     const filteredActive = await axios.get(
       'http://localhost:1337/todos?isDone=false'
     );
-
-    console.log(filteredActive.data);
     setTodos(filteredActive.data);
   };
   // DeLETING A LIST OF ALL DONE
   const deleteList = async () => {
-    console.log('todos to be deleted', todos);
-    const listNotDelete = todos.filter((todo) => {
-      //console.log('can I see is done', todo.isDone);
+    todos.filter((todo) => {
       if (todo.isDone !== false) {
         removeTodo(todo);
-
-        console.log(todo);
       }
     });
-    //setTodos(listNotDelete);
     getTodos();
   };
 
@@ -132,7 +110,6 @@ export default function AllTodos() {
     <>
       <div className='App'>
         <TodoForm onSubmit={addTodo} />
-
         <Todo
           todos={todos}
           updateTodo={updateTodo}
