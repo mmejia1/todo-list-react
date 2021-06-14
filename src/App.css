@@ -1,46 +1,140 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lucida Sans Unicode';
+}
+
+.todo-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 800px;
+  min-height: 300px;
+  background: whitesmoke;
+  text-align: center;
+  margin: 128px auto;
+  border-radius: 10px;
+  padding-bottom: 32px;
+}
+
+h1 {
+  margin: 32px 0;
+  color: pink;
+  font-size: 75px;
+  text-align: center;
+}
+
+.todo {
+  border-top: ridge;
+}
+.todo-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.x {
+  color: red;
+  align-items: center;
+}
+
 .done {
   text-decoration: line-through;
 }
+
+.todo-form {
+  /* display: flex;
+  flex-grow: initial; */
+  margin-bottom: 0.5cm;
+  justify-content: space-around;
+}
+
+input[type='text'] {
+  background: #eee;
+  width: 100%;
+  height: 30px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+}
+
+input::placeholder {
+  text-align: center;
+}
+
+/* input[type='text'] {
+  flex: 0 1 100%;
+  padding: 0 1rem;
+}
+
+@media (min-width: 576px) {
+  .form-col-4 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  } */
 
 .App {
   text-align: center;
 }
 
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.bar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+
+  margin-top: 1cm;
+  /* margin-bottom: -0.5cm;  */
+  /* border-top: ridge, 1cm; */
+}
+
+/* FOR CHECK INPUT */
+/* Remove margins and padding from the list */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: flex-start; */
+}
+
+/* .todo-row {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  margin: 4px auto;
+  border-radius: 10px;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  padding: 16px;
+  border-radius: 5px;
+  width: 90%;
 } */
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Add a "checked" mark when clicked on */
+.done::before {
+  content: '';
+  position: absolute;
+  border-color: pink;
+  border-style: ridge;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}

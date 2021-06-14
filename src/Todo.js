@@ -28,28 +28,25 @@ export default function Todo(props) {
     return <TodoForm editTodo={editTodo} onSubmit={submitUpdate} />;
   }
 
-  // const deletingTodo = (todo) => {
-  //   console.log('tod in single todo', todo);
-  //   setTododToDelete(todo);
-  // };
-
-  // const taskdelete = async () => {
-  //   console.log('in here to delete');
-  //   const response = await axios.delete(
-  //     `http://localhost:1337/todos/${todo.id}`
-  //   );
-  // };
-
   return todos.map((todo, index) => (
-    <div className={todo.isDone ? 'todo-row done' : 'todo-row'} key={index}>
-      <div
-        key={todo.id}
-        onClick={() => completeTodo(todo)}
-        onDoubleClick={() => setEditTodo({ id: todo.id, value: todo.content })}
-      >
-        {todo.content}
-      </div>
-      <div onClick={() => removeTodo(todo)}>X</div>
-    </div>
+    // <div className={todo.isDone ? 'todo-row done' : 'todo-row'} key={index}>
+    <ul className='todo'>
+      <li>
+        <div
+          className={todo.isDone ? 'todo-row done' : 'todo-row'}
+          key={todo.id}
+          onClick={() => completeTodo(todo)}
+          onDoubleClick={() =>
+            setEditTodo({ id: todo.id, value: todo.content })
+          }
+        >
+          {todo.content}
+        </div>
+
+        <div className='x' onClick={() => removeTodo(todo)}>
+          X
+        </div>
+      </li>
+    </ul>
   ));
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 //input the values, when button clickecd there should be a post request sent to back end
 
@@ -9,7 +9,7 @@ export default function TodoForm(props) {
     props.editTodo ? props.editTodo.value : ''
   );
   //const [completed, setCompleted] = useState(false)
-
+  console.log('edit propsp', props);
   const addTodo = async (content) => {
     await axios
       .post('http://localhost:1337/todos', {
@@ -58,10 +58,6 @@ export default function TodoForm(props) {
     setTodo(todo);
   }
 
-  // useEffect(() => {
-  //   updateTodoRequest();
-  // });
-
   return (
     <form className='todo-form' onSubmit={handleSubmit}>
       {/* insert if statement in case its an existing to do and we just want to edit */}
@@ -69,7 +65,7 @@ export default function TodoForm(props) {
       {props.editTodo ? (
         <>
           <input
-            //onChange={(evt) => onChange(evt)}
+            onChange={(evt) => onChange(evt)}
             type='text'
             className='form-control'
             placeholder='edit your task'
@@ -86,7 +82,7 @@ export default function TodoForm(props) {
             placeholder='your task'
             value={content}
           />
-          <button className='btn btn-primary'> Create New Task </button>
+          {/* <button className='btn btn-primary'> Create New Task </button> */}
         </>
       )}
     </form>

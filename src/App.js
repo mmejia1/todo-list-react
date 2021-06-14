@@ -4,34 +4,12 @@ import AllTodos from './AllTodos';
 import './App.css';
 
 export default function App() {
-  // const [todos, setTodods] = useState([]);
-  // console.log('todos', todos);
-
-  // // Fetch your restaurants immediately after the component is mounted
-
-  // const getTodos = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:1337/todos');
-  //     console.log('made it here');
-  //     console.log('made it here', response.data);
-  //     setTodods(response.data);
-  //     // this.setState({ todos: response.data });
-  //   } catch (error) {
-  //     //this.setState({ error });
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getTodos();
-  // }, []);
-
   return (
     <>
-      <AllTodos />
-      {/* <button>AllTodos </button>
-      <button>Active </button>
-      <button onClick={()=> completedTodos()} > Completed</button> */}
+      <h1>todos</h1>
+      <div className='todo-app'>
+        <AllTodos />
+      </div>
     </>
   );
 }
