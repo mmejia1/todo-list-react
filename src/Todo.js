@@ -4,17 +4,16 @@ import TodoForm from './TodoForm';
 export default function Todo(props) {
   console.log('todos after filter', props);
   const { todos, completeTodo, removeTodo, updateTodo } = props;
-  console.log('todos after filter', todos);
+  //console.log('todos after filter', todos);
   const [editTodo, setEditTodo] = useState({
     id: null,
     content: '',
     isDone: false,
   });
 
-  //const [todoToDelete, setTododToDelete] = useState({});
-
   //UPDATEtODO
   const submitUpdate = (value) => {
+    console.log(value);
     updateTodo(editTodo.id, value);
     setEditTodo({
       id: null,
@@ -28,7 +27,6 @@ export default function Todo(props) {
   }
 
   return todos.map((todo, index) => (
-    // <div className={todo.isDone ? 'todo-row done' : 'todo-row'} key={index}>
     <ul className='todo'>
       <li>
         <div

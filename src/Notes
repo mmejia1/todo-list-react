@@ -13,9 +13,4 @@
    Could use some more design work like adding the circle around check mark
 
 
-// "scripts": {
-  //   "develop": "strapi develop",
-  //   "start": "strapi start",
-  //   "build": "strapi build",
-  //   "strapi": "strapi"
-  // },
+

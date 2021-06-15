@@ -8,6 +8,7 @@ export default function AllTodos() {
   const [activeTodos, setActive] = useState(0);
   const [clearCompleted, setClearCompleted] = useState(false);
 
+  //FETCHING ALL TODOS
   // Fetch your todos immediately after the component is mounted
   const getTodos = async () => {
     try {
@@ -16,6 +17,7 @@ export default function AllTodos() {
 
       //CHECKING ACTIVE TASK FOR COUNT
       const active = response.data.filter((todo) => {
+        console.log('IN HERE TO FILTER');
         if (todo.isDone === false) {
           return todo;
         }
@@ -33,47 +35,58 @@ export default function AllTodos() {
       } else {
         setClearCompleted(false);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
     getTodos();
   }, []);
-
   //ADDING A TODO TO LIST
   const addTodo = (todo) => {
+    //this takes care of empty input
+    if (!todo.text || /^\s*$/.test(todo.text)) {
+      return 'please input a task';
+    }
     const addedTodo = [todo, ...todos];
     setTodos(addedTodo);
     getTodos();
   };
+
   //UPDATING A TODO ON LIST
   const updateTodo = (todoId, newValue) => {
+    //this takes care of empty entry on update
+    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+      return;
+    }
     setTodos((prev) =>
       prev.map((item) => (item.id === todoId ? newValue : item))
     );
   };
+
   //DELETING TODO ON LIST
   const removeTodo = async (todo) => {
     const id = todo.id;
     const newList = [...todos].filter((todo) => todo.id !== id);
 
     await axios.delete(`http://localhost:1337/todos/${todo.id}`);
+
     setTodos(newList);
+    getTodos();
   };
 
   const completeTodo = (todo) => {
-    let updatedTodos = todos.map((task) => {
-      if (todo.id === task.id) {
+    const id = todo.id;
+    let updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
         todo.isDone = !todo.isDone;
       }
+
       getTodos();
+
       return todo;
     });
 
     setTodos(updatedTodos);
-
     axios.put(`http://localhost:1337/todos/${todo.id}`, {
       isDone: todo.isDone,
     });
@@ -84,14 +97,13 @@ export default function AllTodos() {
     const filteredCompletedTodo = await axios.get(
       'http://localhost:1337/todos?isDone=true'
     );
-
     setTodos(filteredCompletedTodo.data);
   };
-
   const active = async () => {
     const filteredActive = await axios.get(
       'http://localhost:1337/todos?isDone=false'
     );
+
     setTodos(filteredActive.data);
   };
   // DeLETING A LIST OF ALL DONE
@@ -108,6 +120,7 @@ export default function AllTodos() {
     <>
       <div className='App'>
         <TodoForm onSubmit={addTodo} />
+
         <Todo
           todos={todos}
           updateTodo={updateTodo}

@@ -11,6 +11,10 @@ export default function TodoForm(props) {
 
   //ADDING A TODO AXIOS CALL
   const addTodo = async (content) => {
+    console.log(content);
+    if (content === '') {
+      return 'error';
+    }
     await axios
       .post('http://localhost:1337/todos', {
         content: content,
@@ -73,7 +77,7 @@ export default function TodoForm(props) {
             onChange={(evt) => onChange(evt)}
             type='text'
             className='form-control'
-            placeholder='your task'
+            placeholder='What needs to be done?'
             value={content}
           />
         </>
